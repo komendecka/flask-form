@@ -5,7 +5,7 @@
     <title>Logowanie</title>
 </head>
 <body>
-<form>
+<form action = "calculate" method = "post">
     <div class="form-container">
         <label for="rates">Choose a currency:</label>
         <select name="currency" id="code">
@@ -24,13 +24,12 @@
             <option value="XDR">SDR (MFW)</option>
         </select><br>
         <label for="qty">Ile chcesz kupić?</label>
-        <input type="number" min="0" id="qty"><br><br>
+        <input type="number" min="0" id="qty" name="qty"><br><br>
         <input type="submit" value="Przelicz">
     </div>
 </form>
 <div id="result">
     {% block content %}{% endblock %}
 </div>
-
 </body>
 </html>

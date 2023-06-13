@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect
-import json
+from flask import Flask, render_template, request
 import csv
 import requests
 import pickle
@@ -10,12 +9,12 @@ response = requests.get('http://api.nbp.pl/api/exchangerates/tables/C?format=jso
 data = response.json()
 rates = data[0]['rates']
 
-filename = 'exchange_rates.pkl'
-
-with open(filename, 'wb') as file:
-    pickle.dump(data, file)
-
-print("Dane zostały zapisane do pliku binarnego za pomocą Pickle.")
+# filename = 'exchange_rates.pkl'
+#
+# with open(filename, 'wb') as file:
+#     pickle.dump(data, file)
+#
+# print("Dane zostały zapisane do pliku binarnego za pomocą Pickle.")
 
 # Tworzenie pliku CSV
 filenameRates = 'rates.csv'
@@ -42,8 +41,7 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     currency = request.form.get('currency')
-    qty = float(request.form.get('qty'))
-
+    qty = float(request.form.get('qty')) if request.form.get('qty') else 0.0
     rates = {}
 
     with open('rates.csv', 'r') as csvfile:
